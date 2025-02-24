@@ -1,22 +1,20 @@
-import { ModeToggle } from "@/components/mode-toggle";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Button } from "@/components/ui/button";
+import Layout from "./layout/layout";
 
 export default function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <Content />
+      <Layout>
+        <Content />
+      </Layout>
     </ThemeProvider>
   );
 }
 
 function Content() {
   return (
-    <div className="w-full">
-      <div className="flex items-center justify-between w-full">
-        <h1 className="text-2xl font-bold">Aurora Movies</h1>
-        <ModeToggle />
-      </div>
+    <div className="px-4">
       <Button>Example Button</Button>
     </div>
   );
