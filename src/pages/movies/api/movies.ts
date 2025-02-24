@@ -1,8 +1,4 @@
-export interface Movie {
-  title: string;
-  actor: string;
-  poster: string;
-}
+import { Movie } from "../types";
 
 export const watchNowMovies: Movie[] = [
   {

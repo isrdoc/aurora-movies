@@ -11,6 +11,8 @@ UI for an endpoint that returns a list of movies.
 - Prettier
 - Tailwind CSS
 - Shadcn UI
+- React Query
+- Tanstack Table
 
 ## Setup
 
