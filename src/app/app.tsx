@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@/components/theme/theme-provider";
-import { Button } from "@/components/ui/button";
 import Layout from "./layout/layout";
+import MoviesPage from "@/pages/movies/components/movies-page";
 
 export default function App() {
   return (
@@ -15,7 +15,7 @@ export default function App() {
 function Content() {
   return (
     <div className="px-4">
-      <Button>Example Button</Button>
+      <MoviesPage />
     </div>
   );
 }

@@ -14,10 +14,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
 function Header() {
   return (
-    <div className="flex items-start justify-between w-full p-4">
-      <div className="flex items-baseline gap-2">
+    <div className="flex items-center justify-between w-full p-4">
+      <div className="flex items-baseline gap-2 pl-2 pt-1">
         <Logo />
-        <h1 className="text-2xl font-bold">Movies</h1>
+        <h1 className="text-2xl font-bold leading-none">Movies</h1>
       </div>
       <ModeToggle />
     </div>
@@ -26,7 +26,6 @@ function Header() {
 
 function Logo() {
   const { theme } = useTheme();
-
   return (
     <img
       src={theme === "dark" ? logoDark : logoLight}
