@@ -35,12 +35,13 @@ import { Button } from "@/components/ui/button";
 type DataView = "table" | "card";
 
 type DataTableProps<TData, TValue> = {
-  columns: ColumnDef<TData, TValue> & { accessorKey: string }[];
+  columns: ColumnDef<TData, TValue>[];
   data: TData[];
   toolbar: (table: TableType<TData>) => React.ReactNode;
   card?: (data: TData, id: string) => React.ReactNode;
   isCardView?: boolean;
   views?: DataView[];
+  initialSortingKey?: string;
 };
 
 export function DataTable<TData, TValue>({
@@ -50,6 +51,7 @@ export function DataTable<TData, TValue>({
   card,
   isCardView: initialIsCardView = false,
   views = ["table", "card"],
+  initialSortingKey = "created_at",
 }: DataTableProps<TData, TValue>) {
   // TODO: move to each page specifically, use zustand with local storage to save display preferences for each table
   const [isCardView, setIsCardView] =
@@ -63,11 +65,9 @@ export function DataTable<TData, TValue>({
   const [sorting, setSorting] = React.useState<SortingState>([
     {
       desc: true,
-      id: "id",
-      // id: columns[1]?.accessorKey || "created_at",
+      id: initialSortingKey,
     },
   ]);
-  console.log("columns", columns);
   const isMobile = useIsMobile();
   const pageSize = isCardView ? (isMobile ? 3 : 6) : isMobile ? 10 : 20;
   const initialPagination = {

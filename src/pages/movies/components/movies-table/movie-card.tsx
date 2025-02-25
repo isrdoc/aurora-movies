@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Movie } from "../types";
+import { Movie } from "../../types";
 import { StarIcon } from "lucide-react";
 
 interface MovieCardProps extends React.HTMLAttributes<HTMLDivElement> {

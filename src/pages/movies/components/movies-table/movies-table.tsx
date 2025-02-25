@@ -4,7 +4,7 @@ import { columns } from "./columns";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { ColumnDef, Table as TableType } from "@tanstack/table-core";
 import { DataTableSkeletons } from "@/components/skeletons/skeletons";
-import { MovieCard } from "../movie-card";
+import { MovieCard } from "./movie-card";
 import { Movie } from "../../types";
 
 export default function MoviesTable() {
@@ -21,6 +21,7 @@ export default function MoviesTable() {
       toolbar={(table: TableType<Movie>) => <DataTableToolbar table={table} />}
       card={(movie, id) => <MovieCard key={id} movie={movie} />}
       isCardView
+      initialSortingKey="id"
     />
   );
 }

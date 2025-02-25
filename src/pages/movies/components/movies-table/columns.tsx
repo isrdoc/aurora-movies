@@ -5,7 +5,7 @@ import { Movie } from "../../types";
 
 export const columns: ColumnDef<Movie>[] = [
   {
-    id: "select",
+    id: "id",
     header: ({ table }) => (
       <Checkbox
         checked={
@@ -63,7 +63,10 @@ export const columns: ColumnDef<Movie>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <div className="max-w-[500px] truncate">{row.getValue("rating")}</div>
+        // show rating with one decimal
+        <div className="max-w-[500px] truncate">
+          {(row.getValue("rating") as number).toFixed(1)}
+        </div>
       );
     },
   },

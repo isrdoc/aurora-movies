@@ -1,5 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-import { MovieCard } from "./movie-card";
+import { MovieCard } from "./movies-table/movie-card";
 import { Sidebar } from "./sidebar";
 import { mockMovies } from "../api/movies";
 import MoviesTable from "./movies-table/movies-table";
