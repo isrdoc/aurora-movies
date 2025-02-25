@@ -13,7 +13,11 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { PaginationState, Table as TableType } from "@tanstack/table-core";
+import {
+  PaginationState,
+  Table as TableType,
+  Updater,
+} from "@tanstack/table-core";
 import {
   Table,
   TableBody,
@@ -23,7 +27,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { DataTablePagination } from "./data-table-pagination";
-import { useIsMobile } from "@/lib/use-mobile";
 import { IdCard, Table2 } from "lucide-react";
 import {
   Tooltip,
@@ -42,6 +45,9 @@ type DataTableProps<TData, TValue> = {
   isCardView?: boolean;
   views?: DataView[];
   initialSortingKey?: string;
+  onPaginationChange: (pagination: Updater<PaginationState>) => void;
+  pagination: PaginationState;
+  totalCount?: number;
 };
 
 export function DataTable<TData, TValue>({
@@ -52,6 +58,9 @@ export function DataTable<TData, TValue>({
   isCardView: initialIsCardView = false,
   views = ["table", "card"],
   initialSortingKey = "created_at",
+  onPaginationChange,
+  pagination,
+  totalCount,
 }: DataTableProps<TData, TValue>) {
   // TODO: move to each page specifically, use zustand with local storage to save display preferences for each table
   const [isCardView, setIsCardView] =
@@ -68,17 +77,10 @@ export function DataTable<TData, TValue>({
       id: initialSortingKey,
     },
   ]);
-  const isMobile = useIsMobile();
-  const pageSize = isCardView ? (isMobile ? 3 : 6) : isMobile ? 10 : 20;
-  const initialPagination = {
-    pageIndex: 0,
-    pageSize: pageSize,
-  };
-  const [pagination, setPagination] =
-    React.useState<PaginationState>(initialPagination);
+
   React.useEffect(() => {
-    setPagination(initialPagination);
-  }, [isCardView, isMobile]);
+    onPaginationChange({ pageIndex: 0, pageSize: isCardView ? 6 : 30 });
+  }, [isCardView]);
 
   const table = useReactTable({
     data,
@@ -90,12 +92,16 @@ export function DataTable<TData, TValue>({
       columnFilters,
       pagination,
     },
+    pageCount: totalCount
+      ? Math.ceil(totalCount / pagination.pageSize)
+      : undefined,
     enableRowSelection: true,
+    manualPagination: true,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
-    onPaginationChange: setPagination,
+    onPaginationChange,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
