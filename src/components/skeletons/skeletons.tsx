@@ -28,7 +28,7 @@ function CardSkeletons() {
       {[...Array(isMobile ? 4 : 12).keys()].map((key) => (
         <Skeleton
           key={`DataTableCardSkeletons${key}`}
-          className="h-60 w-full max-w-xl hover:shadow-lg transition-shadow duration-200"
+          className="h-120 w-full max-w-xl hover:shadow-lg transition-shadow duration-200"
         />
       ))}
     </div>
