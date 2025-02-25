@@ -29,18 +29,41 @@ export const columns: ColumnDef<Movie>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "name",
-    size: 100,
+    accessorKey: "title",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Name" />
+      <DataTableColumnHeader column={column} title="Title" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("name")}
+            {row.getValue("title")}
           </span>
         </div>
+      );
+    },
+  },
+  {
+    accessorKey: "description",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Description" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="max-w-[500px] truncate">
+          {row.getValue("description")}
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "rating",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Rating" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="max-w-[500px] truncate">{row.getValue("rating")}</div>
       );
     },
   },

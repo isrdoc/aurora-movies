@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
-import { MovieArtwork } from "./movie-artwork";
+import { MovieCard } from "./movie-card";
 import { Sidebar } from "./sidebar";
-import { watchNowMovies } from "../api/movies";
+import { mockMovies } from "../api/movies";
 import MoviesTable from "./movies-table/movies-table";
 
 export default function MoviesPage() {
@@ -43,18 +43,6 @@ export default function MoviesPage() {
                     </div>
                     <Separator className="my-4" />
                     <MoviesTable />
-                    <Separator className="my-4" />
-                    <div className="relative">
-                      <div className="grid grid-cols-4 gap-4 pb-4">
-                        {watchNowMovies.map((movie) => (
-                          <MovieArtwork
-                            key={movie.title}
-                            movie={movie}
-                            aspectRatio="portrait"
-                          />
-                        ))}
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>

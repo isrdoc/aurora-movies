@@ -35,7 +35,7 @@ import { Button } from "@/components/ui/button";
 type DataView = "table" | "card";
 
 type DataTableProps<TData, TValue> = {
-  columns: ColumnDef<TData, TValue>[];
+  columns: ColumnDef<TData, TValue> & { accessorKey: string }[];
   data: TData[];
   toolbar: (table: TableType<TData>) => React.ReactNode;
   card?: (data: TData, id: string) => React.ReactNode;
@@ -63,20 +63,22 @@ export function DataTable<TData, TValue>({
   const [sorting, setSorting] = React.useState<SortingState>([
     {
       desc: true,
-      id: "created_at",
+      id: "id",
+      // id: columns[1]?.accessorKey || "created_at",
     },
   ]);
+  console.log("columns", columns);
   const isMobile = useIsMobile();
-  const [pagination, setPagination] = React.useState<PaginationState>({
+  const pageSize = isCardView ? (isMobile ? 3 : 6) : isMobile ? 10 : 20;
+  const initialPagination = {
     pageIndex: 0,
-    pageSize: isMobile ? 10 : 12,
-  });
+    pageSize: pageSize,
+  };
+  const [pagination, setPagination] =
+    React.useState<PaginationState>(initialPagination);
   React.useEffect(() => {
-    setPagination({
-      ...pagination,
-      pageSize: isMobile ? 10 : 12, // Non-mobile value could be 20, but for demo we want to see the pagination
-    });
-  }, [isMobile]);
+    setPagination(initialPagination);
+  }, [isCardView, isMobile]);
 
   const table = useReactTable({
     data,
@@ -130,14 +132,14 @@ function CardView<TData>({
   return (
     <div className="@container">
       {table.getRowModel().rows?.length ? (
-        <div className="grid @md:grid-cols-1 @lg:grid-cols-1 @xl:grid-cols-2 @2xl:grid-cols-2 @3xl:grid-cols-2 @4xl:grid-cols-3 @5xl:grid-cols-3 @6xl:grid-cols-3 @7xl:grid-cols-4 gap-3">
+        <div className="grid @md:grid-cols-1 @lg:grid-cols-1 @xl:grid-cols-2 @2xl:grid-cols-2 @3xl:grid-cols-2 @4xl:grid-cols-3 @5xl:grid-cols-3 @6xl:grid-cols-3 @7xl:grid-cols-4 gap-3 gap-y-6">
           {table.getRowModel().rows.map((row) => {
             const item = row.original;
             return card && card(item, row.id);
           })}
         </div>
       ) : (
-        <div className="bg-white text-zinc-900 rounded-md border overflow-x-hidden max-w-[calc(100vw-2rem)] sm:max-w-[calc(100vw-6rem)]">
+        <div className="rounded-md border overflow-x-hidden max-w-[calc(100vw-2rem)] sm:max-w-[calc(100vw-6rem)]">
           <Table>
             <TableBody>
               <NoResultsRow colSpan={1} />
@@ -157,7 +159,7 @@ function TableView<TData, TValue>({
   columns: ColumnDef<TData, TValue>[];
 }) {
   return (
-    <div className="bg-white text-zinc-900 rounded-md border overflow-x-hidden w-full max-w-[calc(100vw-2rem)] sm:max-w-[calc(100vw-6rem)]">
+    <div className=" rounded-md border overflow-x-hidden w-full max-w-[calc(100vw-2rem)] sm:max-w-[calc(100vw-6rem)]">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

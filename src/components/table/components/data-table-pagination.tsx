@@ -23,7 +23,7 @@ export function DataTablePagination<TData>({
   isCardView: boolean;
 }) {
   return (
-    <div className="text-zinc-900 flex items-center justify-between">
+    <div className="flex items-center justify-between">
       <RowsSelected table={table} />
       <div className="flex flex-col-reverse sm:flex-row items-end sm:items-center space-y-2 sm:space-y-0 sm:space-x-8">
         <div className="mt-1">
@@ -68,7 +68,7 @@ function ItemsPerPageSelect<TData>({
           table.setPageSize(Number(value));
         }}
       >
-        <SelectTrigger className="h-8 w-[70px] bg-white">
+        <SelectTrigger className="h-8 w-[70px] ">
           <SelectValue placeholder={table.getState().pagination.pageSize} />
         </SelectTrigger>
         <SelectContent side="top">

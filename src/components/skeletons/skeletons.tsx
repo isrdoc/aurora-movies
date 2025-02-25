@@ -2,7 +2,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useIsMobile } from "@/lib/use-mobile";
 
 export function DataTableSkeletons({ isCardView }: { isCardView?: boolean }) {
-  const isMobile = useIsMobile();
   return (
     <div className="@container w-full flex flex-col space-y-3">
       <Skeleton className="h-8 w-[200px]" />

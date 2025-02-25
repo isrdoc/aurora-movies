@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { watchNowMovies as movies } from "./movies";
+import { mockMovies as movies } from "./movies";
 import { Movie } from "../types";
 
 export function useGetMovies() {

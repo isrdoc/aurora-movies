@@ -4,10 +4,10 @@ import { columns } from "./columns";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { ColumnDef, Table as TableType } from "@tanstack/table-core";
 import { DataTableSkeletons } from "@/components/skeletons/skeletons";
-import MovieCard from "@/components/cards/profile-card";
+import { MovieCard } from "../movie-card";
 import { Movie } from "../../types";
 
-export default function CandidatesTable() {
+export default function MoviesTable() {
   const { data, error, isLoading } = useGetMovies();
 
   if (isLoading) {
