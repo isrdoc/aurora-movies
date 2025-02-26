@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { useIsMobile } from "@/lib/use-mobile";
+import { useIsMobile } from "@/utils/use-mobile";
 
 export function DataTableSkeletons({ isCardView }: { isCardView?: boolean }) {
   return (

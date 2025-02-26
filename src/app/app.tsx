@@ -2,7 +2,7 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Layout from "./layout/layout";
 import MoviesPage from "@/pages/movies/components/movies-page";
-
+import { ToastContainer } from "react-toastify";
 const queryClient = new QueryClient();
 export default function App() {
   return (
@@ -11,6 +11,7 @@ export default function App() {
         <Layout>
           <Content />
         </Layout>
+        <ToastContainer />
       </ThemeProvider>
     </QueryClientProvider>
   );

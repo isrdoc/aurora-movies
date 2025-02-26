@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/style-utils";
 import { Movie } from "../../types";
 import { StarIcon } from "lucide-react";
 

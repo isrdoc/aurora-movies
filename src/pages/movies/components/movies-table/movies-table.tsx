@@ -13,7 +13,7 @@ export default function MoviesTable() {
     pageIndex: 0,
     pageSize: 6,
   });
-  const { data, error, isLoading } = useGetMovies(pagination);
+  const { data, isLoading } = useGetMovies(pagination);
   const { items: movies, total } = data || { items: [], total: 0 };
 
   if (isLoading) {
@@ -22,7 +22,7 @@ export default function MoviesTable() {
 
   return (
     <DataTable
-      data={movies}
+      data={movies || []}
       columns={columns}
       toolbar={(table: TableType<Movie>) => <DataTableToolbar table={table} />}
       card={(movie, id) => <MovieCard key={id} movie={movie} />}
