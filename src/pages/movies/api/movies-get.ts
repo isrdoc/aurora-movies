@@ -13,14 +13,12 @@ interface GetMoviesResponse {
   total: number;
 }
 
-// TODO: add search query
-
-export function useGetMovies(pagination: PaginationState) {
+export function useGetMovies(pagination: PaginationState, search: string) {
   const query: UseQueryResult<GetMoviesResponse> = useQuery({
-    queryKey: ["movies", pagination],
+    queryKey: ["movies", pagination, search],
     queryFn: () =>
       withErrorHandling<GetMoviesResponse>(
-        () => getMovies(pagination),
+        () => getMovies(pagination, search),
         query.data as GetMoviesResponse,
         "Error fetching movies"
       ),
@@ -30,11 +28,11 @@ export function useGetMovies(pagination: PaginationState) {
   return query;
 }
 
-async function getMovies(pagination: PaginationState) {
+async function getMovies(pagination: PaginationState, search: string) {
   const response = await axios.get(
     `https://november7-730026606190.europe-west1.run.app/movies?skip=${
       pagination.pageIndex * pagination.pageSize
-    }&limit=${pagination.pageSize}`
+    }&limit=${pagination.pageSize}&query=${search}`
   );
   return response.data || ({ items: [], total: 0 } as GetMoviesResponse);
 }

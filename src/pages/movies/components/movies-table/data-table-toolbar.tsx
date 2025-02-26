@@ -5,10 +5,12 @@ import { Input } from "@/components/ui/input";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
+  onSearchChange: (value: string) => void;
 }
 
 export function DataTableToolbar<TData>({
   table,
+  onSearchChange,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
@@ -18,15 +20,19 @@ export function DataTableToolbar<TData>({
         <Input
           placeholder="Filter movies..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
-          }
+          onChange={(event) => {
+            onSearchChange(event.target.value);
+            table.getColumn("title")?.setFilterValue(event.target.value);
+          }}
           className=" h-8 w-[200px] lg:w-[250px]"
         />
         {isFiltered && (
           <Button
             variant="ghost"
-            onClick={() => table.resetColumnFilters()}
+            onClick={() => {
+              onSearchChange("");
+              table.resetColumnFilters();
+            }}
             className="h-8 px-2 lg:px-3"
           >
             Reset
